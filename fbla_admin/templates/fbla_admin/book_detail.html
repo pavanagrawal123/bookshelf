@@ -1,0 +1,232 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <div class="card" style="width: 14rem;">
+        <img
+          class="card-img-top"
+          src="/media/{{ object.image.url }}"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ object.name }}</h5>
+          <p class="card-text">Author: {{ object.author }}</p>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="{{ object.get_update_url }}">Edit</a>
+      <a
+        style="color: white;"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        >Add New Claim Code</a
+      >
+      <!-- Button trigger modal -->
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Copy</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/fbla_admin/ebook/create/?next={{object.get_absolute_url}}" method="post">
+                {% csrf_token %}
+
+                <div id="div_id_name" class="control-group">
+                  <script>
+                    $(document).ready(function() {
+                      console.log("ready!");
+
+                      $("#exampleModal").on("shown.bs.modal", function(e) {
+                        var x = document.getElementById("id_name");
+                        var claim = "";
+                        var possible =
+                          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                        for (var i = 0; i < 10; i++)
+                          claim += possible.charAt(
+                            Math.floor(Math.random() * possible.length)
+                          );
+                        x.value = claim;
+                      });
+                    });
+                  </script>
+                  <label for="id_name" class="control-label requiredField">
+                    Claim Code<span class="asteriskField">*</span>
+                  </label>
+                  <div class="controls">
+                    <input
+                      type="text"
+                      name="name"
+                      maxlength="255"
+                      class="textinput textInput"
+                      required=""
+                      id="id_name"
+                    />
+                  </div>
+                </div>
+
+                <input
+                  name="book_id"
+                  class="select"
+                  required=""
+                  id="id_book_id"
+                  value="{{ object.id }}"
+                  type="hidden"
+                />
+                
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button class="btn btn-primary" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">
+            Number of copies in circulation:
+          </p>
+          <p>{{ copyCount }}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">
+            Number of copies claimed:
+          </p>
+          <p>{{ booksCheckedOutCount }}</p>
+        </li>
+      </ul>
+      <h2>Book Copies:</h2>
+      <ul class="list-group">
+        <table>
+          <tr>
+            <th>Claim Code</th>
+            <th>Student Issued To</th>
+          </tr>
+          <tbody>
+            {% for copy in copies %}
+            <tr>
+              <td>{{ copy.name }}</td>
+              <td>{{ copy.check_out_student.name }}</td>
+              <td> 
+                {% if not copy.check_out_student %} 
+                <a
+                style="color: white;"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#{{ copy.name }}"
+                >
+                Assign to Student
+              </a> 
+                {% endif %}
+                {% if copy.check_out_student %} 
+                <a
+                style="color: white;"
+                class="btn btn-primary"
+                href="/fbla_admin/ebook/delete/{{copy.slug}}/?next={{object.get_absolute_url}}"
+                >
+                Delete Copy
+                </a>
+                {% endif %}
+              </td>
+            </tr>
+            <div
+            class="modal fade"
+            id="{{ copy.name }}"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Assign Student</h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action="/fbla_admin/ebook/update/{{copy.slug}}/?next={{object.get_absolute_url}}" method="post">
+                    {% csrf_token %}
+                    <div id="div_id_name" class="control-group">
+                      <label for="id_name" class="control-label requiredField">
+                        Student<span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls">
+                          <input type="hidden" name="name" value="{{copy.name}}" maxlength="255" class="textinput textInput" required id="id_name">
+                          <input type="hidden" name="book_id" value="{{copy.book_id.id}}" maxlength="255" class="textinput textInput" required id="id_name">
+                          <select name="check_out_student" class="select" required id="id_book_id">
+                            {% for student in students %}
+                              <option value={{student.id}}>{{student.name}}</option>
+                            {% endfor %}
+                            </select>
+                      </div>
+                    </div>
+    
+                    <input
+                      name="book_id"
+                      class="select"
+                      required=""
+                      id="id_book_id"
+                      value="{{ object.id }}"
+                      type="hidden"
+                    />
+                    
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button class="btn btn-primary" type="submit">Assign</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+            {% endfor %}
+          </tbody>
+        </table>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

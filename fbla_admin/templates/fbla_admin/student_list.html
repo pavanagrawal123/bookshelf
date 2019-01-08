@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<p>
+  <a class="btn btn-default" href="{% url 'fbla_admin_student_list' %}"
+    >Students</a
+  >
+</p>
+<table class="table">
+  <tr>
+    <td>Name</td>
+    <td>Grade Level</td>
+    <td>View Student Details</td>
+    <td>Edit Student Details</td>
+  </tr>
+  {% for object in object_list %}
+  <tr>
+    <td>{{ object.name }}</td>
+    <td>{{ object.grade_level }}</td>
+    <td><a href="{{ object.get_absolute_url }}">View Student</a></td>
+    <td><a href="{{ object.get_update_url }}">Edit Student</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a class="btn btn-primary" href="{% url 'fbla_admin_student_create' %}"
+  >Create new student</a
+>
+{% endblock %}
