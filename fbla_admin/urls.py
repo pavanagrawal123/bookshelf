@@ -14,7 +14,9 @@ urlpatterns = (
     # urls for Django Rest Framework API
     path('api/v1/', include(router.urls)),
     path('', views.index),
-    path('help/', views.help)
+    path('help/', views.help),
+    path('progDoc/', views.documentation),
+    path('report/', views.report)
 )
 
 urlpatterns += (

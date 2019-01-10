@@ -111,3 +111,24 @@ def help(request):
         'studentCount': student.objects.count()
     }
     return render(request, 'fbla_admin/help.html', context=context)
+def documentation(request):
+    context = {
+        'bookCount': book.objects.count(),
+        'studentCount': student.objects.count()
+    }
+    return render(request, 'fbla_admin/documentation.html', context=context)
+
+def report(request):
+    context = {}
+    toRet = []
+    for bok in book.objects.all():
+        bok.count  = ebook.objects.filter(book_id=bok.id).count()
+        bok.available = ebook.objects.filter(book_id=bok.id).exclude(check_out_student=None).count()
+        toRet.append(bok)
+    context['students'] = []
+    for studen in student.objects.all():
+        studen.count = ebook.objects.filter(check_out_student=studen.id).count()
+        context['students'].append(studen)
+    context['books'] = toRet
+    print(context)
+    return render(request, 'fbla_admin/report.html', context=context)

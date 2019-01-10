@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<h2>Technologies used:</h2>
+<ul>
+  <li>Python</li>
+  <li>Django</li>
+  <li>Docker</li>
+  <li>SQL</li>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JS</li>
+  <li>SQL</li>
+  <li>Bootstrap</li>
+  <li>now.sh</li>
+</ul>
+
+<h2>Code Overview</h2>
+<p>
+  The code is broken into different sections for clarity in the code. You can
+  find the models of the data in the models/ folder. The data is defined as a
+  model, as it makes for easier access down the road and much nicer code.
+</p>
+<p>
+  The use of Django as the application framework allows for interesting code,
+  that is much more concise, as it is purpose built for tasks like this. If you
+  are used to Ruby code, Django is very similar to Ruby on Rails, another very
+  popular web development framework.
+</p>
+<p>
+  All the code is deployed using Docker to now.sh. now.sh Allows the use of
+  serverless docker, which is very interesting. It provides sub 500ms cold start
+  times, along with a globally deployed CDN, which has been very speedy in
+  previous use. It also makes running this site very low cost. It is currently
+  running on the free plan and still running with great speed, security, and
+  ease of use.
+</p>
+<p>
+  In order to reduce the complexity of the frontend, there was no usage of a
+  heavy frontend framework like React or Vue. There is no place for those here,
+  as the functionallity we are looking for can be driven via pure JS.
+</p>
+
+<h2>Data Security and Backup</h2>
+<p>
+  The data is stored in the cloud on AWS through an abstraction from now.sh. AWS
+  is trused by the CIA, NSA, and many other government organizations. It has
+  been thoroughly vetted in the past in order to verify that it meets security
+  standards. Data is also backed up through AWS every few hours, giving us a
+  safety, if anything were to happen to the application. This is known as
+  dynamic backup.
+</p>
+<h2>If Then Behavior</h2>
+<p>
+  In the book view, if the book is assigned to a student, the button changes to
+  a delete button, rather than assign button, saving time.
+</p>
+<h2>Interactice Q and A Documentation</h2>
+<p>
+  There is an interactive Q and A Documentation you can find under the Help tab.
+</p>
+<h2>Report analysis</h2>
+<p>
+  The report tab allows you to manipulate the data and analyze it. You can do
+  the following:
+</p>
+<ul>
+  <li>Order fields</li>
+  <li>View the records by grade level, by ordering on the grade level</li>
+  <li>
+    View students that have the most amount of books by ordering on the field.
+  </li>
+</ul>
+<h2>Program Commentary</h2>
+<p>
+  View the code here:
+  <a href="https://github.com/pavanagrawal123/bookshelf">on Github</a>, as the
+  code you are seeing on the view-source option is the server side rendered code
+  from the backend. There is extensive commentary on the code on Github.
+</p>
+{% endblock %}

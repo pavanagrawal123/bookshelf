@@ -1,9 +1,12 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 <p>
   <a class="btn btn-default" href="{% url 'fbla_admin_student_list' %}"
-    >Students</a
+    >Students List </a
   >
 </p>
+<a class="btn btn-primary" href="{% url 'fbla_admin_student_create' %}"
+  >Create new student</a
+>
 <table class="table">
   <tr>
     <td>Name</td>
@@ -21,7 +24,4 @@
   {% endfor %}
 </table>
 
-<a class="btn btn-primary" href="{% url 'fbla_admin_student_create' %}"
-  >Create new student</a
->
 {% endblock %}

@@ -30,6 +30,11 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+    </script>
     <style>
       .content {
         margin: 10px;
@@ -47,12 +52,15 @@
       #homePageDemos * {
         font-size: 1.5em;
       }
+      .gap * {
+        margin: 10px;
+      }
     </style>
-    <title>Hello, world!</title>
+    <title>Bookshelf</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#"><img width="75" src="/media/bookshelf-logo.png" /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -81,8 +89,11 @@
             <a class="nav-link" href="/progDoc/">Programming Documentation</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/help/">Help</a>
+            <a class="nav-link" href="/report/">Report</a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/help/">Help</a>
+            </li>
         </ul>
       </div>
     </nav>
