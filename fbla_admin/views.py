@@ -104,3 +104,10 @@ def index(request):
         'studentCount': student.objects.count()
     }
     return render(request, 'fbla_admin/home.html', context=context)
+
+def help(request):
+    context = {
+        'bookCount': book.objects.count(),
+        'studentCount': student.objects.count()
+    }
+    return render(request, 'fbla_admin/help.html', context=context)

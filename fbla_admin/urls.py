@@ -13,7 +13,8 @@ router.register(r'ebook', api.ebookViewSet)
 urlpatterns = (
     # urls for Django Rest Framework API
     path('api/v1/', include(router.urls)),
-    path('', views.index)
+    path('', views.index),
+    path('help/', views.help)
 )
 
 urlpatterns += (
