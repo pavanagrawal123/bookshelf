@@ -47,6 +47,7 @@ class bookDetailView(DetailView):
     model = book
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
+        # get all the information from the database and then clean some of the data up
         context = super(bookDetailView, self).get_context_data(**kwargs)
         copyCount = ebook.objects.filter(book_id=self.object).count()
         booksCheckedOutCount = ebook.objects.filter(book_id=self.object).exclude(check_out_student=None).count()
@@ -120,6 +121,7 @@ def documentation(request):
 
 def report(request):
     context = {}
+    # for this view, we need all the information and then we need to pop it over to the context.
     toRet = []
     for bok in book.objects.all():
         bok.count  = ebook.objects.filter(book_id=bok.id).count()
@@ -130,5 +132,6 @@ def report(request):
         studen.count = ebook.objects.filter(check_out_student=studen.id).count()
         context['students'].append(studen)
     context['books'] = toRet
+    context['ebooks'] =ebook.objects.exclude(check_out_student=None).all()
     print(context)
     return render(request, 'fbla_admin/report.html', context=context)

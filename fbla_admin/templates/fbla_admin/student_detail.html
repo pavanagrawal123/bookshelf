@@ -1,45 +1,61 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<p>
-  <a class="btn btn-default" href="{% url 'fbla_admin_student_list' %}"
-    >View All Students</a
-  >
-</p>
-<a style="margin: 10px;" class="btn btn-primary" href="{{ object.get_update_url }}">Edit student</a>
-<ul class="list-group">
-  <li class="list-group-item">
-    <p class="font-weight-bold" style="float: left;">Name:</p>
-    <p>{{ object.name }}</p>
-  </li>
-  <li class="list-group-item">
-    <p class="font-weight-bold" style="float: left;">Grade:</p>
-    <p>{{ object.grade_level }}</p>
-  </li>
-  <li class="list-group-item">
-    <p class="font-weight-bold" style="float: left;">
-      Number of Claimed Books:
-    </p>
-    <p>{{ bookCount }}</p>
-  </li>
-</ul>
-
-<h2>Books claimed:</h2>
-{% for book in booksCheckedOut %}
-<div class="card" style="width: 14rem;">
-  <img
-    class="card-img-top"
-    src="/media/{{ book.image.url }}"
-    alt="Card image cap"
-  />
-  <div class="card-body">
-    <h5 class="card-title">{{ book.name }}</h5>
-    <p class="card-text">Author: {{ book.author }}</p>
-    <a href="{{ book.get_absolute_url }}" class="btn btn-primary"
-      >View Details</a
+<div class="container">
+  <div class="row">
+    <a type="submit" style="margin: 10px" class="btn" href="{% url 'fbla_admin_student_list' %}"
+      >View All Students</a
     >
   </div>
+  <div class="row"></div>
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">Name:</p>
+          <p>{{ object.name }}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">Grade:</p>
+          <p>{{ object.grade_level }}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">
+            Number of Claimed Books:
+          </p>
+          <p>{{ bookCount }}</p>
+        </li>
+        <li class="list-group-item">
+          <p class="font-weight-bold" style="float: left;">
+            Edit Student Details:
+          </p>
+          <a
+            style="margin: 10px;"
+            class="btn btn-primary"
+            href="{{ object.get_update_url }}"
+            >Edit student</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-8">
+      <h2>Books claimed:</h2>
+      {% for book in booksCheckedOut %}
+      <div class="card" style="width: 14rem;">
+        <img
+          class="card-img-top"
+          src="/media/{{ book.image.url }}"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ book.name }}</h5>
+          <p class="card-text">Author: {{ book.author }}</p>
+          <a href="{{ book.get_absolute_url }}" class="btn btn-primary"
+            >View Details</a
+          >
+        </div>
+      </div>
+
+      {% endfor %} {% endblock %}
+    </div>
+  </div>
 </div>
-{% endfor %}
-
-
-
-{% endblock %}
