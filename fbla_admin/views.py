@@ -125,7 +125,7 @@ def report(request):
     toRet = []
     for bok in book.objects.all():
         bok.count  = ebook.objects.filter(book_id=bok.id).count()
-        bok.available = ebook.objects.filter(book_id=bok.id).exclude(check_out_student=None).count()
+        bok.available = bok.count - ebook.objects.filter(book_id=bok.id).exclude(check_out_student=None).count()
         toRet.append(bok)
     context['students'] = []
     for studen in student.objects.all():

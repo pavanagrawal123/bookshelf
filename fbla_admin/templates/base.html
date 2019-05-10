@@ -1,4 +1,7 @@
 <html lang="en">
+  <!-- Attention FBLA Grader: You must view this code on GitHub to view the proper commentary. 
+This is not the complete code. View complete code here: https://github.com/pavanagrawal123/bookshelf -->
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -32,9 +35,9 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
-    </script>
+      href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+    />
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <style>
       .content {
         margin: 10px;
@@ -63,7 +66,9 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"><img width="75" src="/media/bookshelf-logo.png" /></a>
+      <a class="navbar-brand" href="#"
+        ><img width="75" src="/media/bookshelf-logo.png"
+      /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -95,8 +100,17 @@
             <a class="nav-link" href="/report/">Report</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/help/">Help</a>
-            </li>
+            <a class="nav-link" href="/help/">Help</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/logout/">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/login?next=/">Login</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </nav>

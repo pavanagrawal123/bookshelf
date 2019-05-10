@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 import os
 import sys
+from django.core.wsgi import get_wsgi_application
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "FBLA.settings")
+
+try:
+    app = get_wsgi_application()
+    print('WSGI without exception')
+except Exception as e:
+    print(str(e))
+
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "FBLA.settings")

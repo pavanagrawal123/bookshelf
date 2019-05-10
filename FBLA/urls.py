@@ -17,8 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.views.static import serve
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
+    url('accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('fbla_admin.urls')),
     url(r'^media/(?P<path>.*)$', serve, { 'document_root' : settings.MEDIA_ROOT})

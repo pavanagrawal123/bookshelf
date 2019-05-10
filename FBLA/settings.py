@@ -26,7 +26,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'CHANGEME')
 DEBUG = True
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*"
+]
 
 
 # Application definition
@@ -81,8 +83,7 @@ WSGI_APPLICATION = 'FBLA.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
@@ -116,6 +117,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
-import django_heroku
-django_heroku.settings(locals())

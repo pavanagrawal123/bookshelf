@@ -1,0 +1,12 @@
+{
+    "name": "python-django",
+    "version": 2,
+    "public": true,
+    "builds": [
+      { "src": "manage.py", "use": "@now/python", "config": { "maxLambdaSize": "150mb" } },
+      { "src": "css/**", "use": "@now/static" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "manage.py" }
+    ]
+  }
